@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Slider } from "@radix-ui/react-slider";
 import Image from "next/image";
 
 export default function Home() {
