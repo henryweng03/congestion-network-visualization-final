@@ -9,13 +9,13 @@ export default function VariableControlPanel() {
       <TabsList className="grid w-full grid-cols-2 bg-slate-50 rounded-lg rounded-b-none border border-b-0 shadow-sm p-4 -mb-8">
         <TabsTrigger
           value="current-proposal"
-          className="data-[state=active]:ring-1 ring-slate-100 py-2.5 rounded-md rounded-r-none data-[state=inactive]:bg-slate-200/60 data-[state=inactive]:shadow-inner"
+          className="py-2.5 rounded-md border border-r-0 rounded-r-none data-[state=inactive]:bg-slate-200/60 data-[state=inactive]:shadow-inner"
         >
           Current proposal
         </TabsTrigger>
         <TabsTrigger
           value="new-proposal"
-          className="data-[state=active]:ring-1 ring-slate-100 py-2.5 rounded-md rounded-l-none data-[state=inactive]:bg-slate-200/60 data-[state=inactive]:shadow-inner"
+          className=" py-2.5 rounded-md border  border-l-0 rounded-l-none data-[state=inactive]:bg-slate-200/60 data-[state=inactive]:shadow-inner"
         >
           New proposal
         </TabsTrigger>
