@@ -3,7 +3,7 @@ import React from "react";
 import { Slider } from "./ui/slider";
 import { LabeledInput } from "./LabeledInput";
 
-const SliderWithInput = ({
+export default function SliderWithInput({
   min,
   max,
   defaultValue,
@@ -13,7 +13,7 @@ const SliderWithInput = ({
   max: number;
   defaultValue: number;
   labelName: string;
-}) => {
+}) {
   const [value, setValue] = React.useState(defaultValue);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ const SliderWithInput = ({
         max={max}
         value={value}
         onChange={handleChange}
-        className="mb-3"
+        className="mb-5"
       />
 
       <Slider
@@ -44,7 +44,7 @@ const SliderWithInput = ({
       />
     </div>
   );
-};
+}
 
 SliderWithInput.displayName = "SliderWithInput";
 
