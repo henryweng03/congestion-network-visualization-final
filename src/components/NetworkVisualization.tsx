@@ -10,7 +10,15 @@ const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 export default function NetworkVisualization() {
   return (
     <div className="w-96 h-96">
-      <ReactFlow nodes={initialNodes} edges={initialEdges} panOnDrag={false} />
+      <ReactFlow
+        nodes={initialNodes}
+        edges={initialEdges}
+        panOnDrag={false}
+        zoomOnPinch={false}
+        zoomOnScroll={false}
+        zoomOnDoubleClick={false}
+        preventScrolling={true}
+      />
     </div>
   );
 }
