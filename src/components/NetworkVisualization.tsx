@@ -9,6 +9,7 @@ const initialNodes = [
     type: "cityNode",
     draggable: false,
     selectable: false,
+    data: { label: "1" },
     position: { x: 0, y: 0 },
   },
   {
@@ -16,10 +17,32 @@ const initialNodes = [
     type: "cityNode",
     draggable: false,
     selectable: false,
+    data: { label: "2" },
     position: { x: 0, y: 100 },
   },
+  {
+    id: "1",
+    type: "cityNode",
+    position: { x: 100, y: 0 },
+    data: { label: "1" },
+  },
+  {
+    id: "2",
+    type: "cityNode",
+    position: { x: 100, y: 100 },
+    data: { label: "2" },
+  },
 ];
-const initialEdges = [{ id: "e1-2", source: "node1", target: "node2" }];
+
+const initialEdges = [
+  {
+    id: "e1-2",
+    source: "1",
+    target: "2",
+    sourceHandle: "b",
+    targetHandle: "t",
+  },
+];
 
 const nodeTypes = {
   cityNode: CityNode,

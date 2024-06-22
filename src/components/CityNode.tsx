@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { Handle, useStore, Position } from "reactflow";
 
-const CityNode = memo(({ id }: { id: string }) => {
+const CityNode = ({ id }: { id: string }) => {
   const label = useStore((s) => {
     const node = s.nodeInternals.get(id);
 
@@ -12,8 +12,14 @@ const CityNode = memo(({ id }: { id: string }) => {
     return "";
   });
 
-  return <div className="p-3 bg-white rounded-full">{label}</div>;
-});
+  return (
+    <div className="p-3 bg-white rounded-full">
+      <Handle type="target" position={Position.Bottom} id="t" isConnectable />
+      <p> {label}</p>
+      <Handle type="target" position={Position.Top} id="b" isConnectable />
+    </div>
+  );
+};
 
 CityNode.displayName = "CityNode";
 
