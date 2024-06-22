@@ -40,7 +40,7 @@ export default function SliderWithInput({
         min={min}
         max={max}
         step={1}
-        className="w-[24rem]"
+        className="w-[20rem]"
       />
     </div>
   );

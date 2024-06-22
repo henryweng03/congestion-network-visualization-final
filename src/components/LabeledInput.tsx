@@ -12,18 +12,18 @@ const LabeledInput = React.forwardRef<HTMLInputElement, LabeledInputProps>(
     return (
       <div
         className={cn(
-          "group relative flex items-center bg-white rounded-md border focus-within:border-primary border-slate-300 disabled:cursor-not-allowed disabled:opacity-50",
+          "group relative flex w-min bg-white items-center rounded-md border focus-within:border-primary border-slate-300 disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
       >
-        <label className="block text-sm font-medium text-muted-foreground ml-3 pr-3 border-slate-300 border-r">
+        <p className="text-xs font-medium text-muted-foreground ml-3 pr-3 border-slate-300 border-r w-[11.5rem]">
           {label}
-        </label>
+        </p>
         <input
           type={type}
           ref={ref}
           {...props}
-          className="px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-0 w-[10em] rounded-md"
+          className="px-3 py-2 text-sm flex-none focus-visible:outline-none focus-visible:ring-0 rounded-md flex-shrink w-[4rem] bg-transparent"
         />
       </div>
     );
