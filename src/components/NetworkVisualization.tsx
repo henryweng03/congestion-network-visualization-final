@@ -28,7 +28,6 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
   const NODE_RADIUS = 7;
   const EDGE_SPACING = 10;
   const ARROW_SIZE = 5;
-  const FLOW_SPEED = 20; // pixels per second
   const DASH_LENGTH = 4;
   const GAP_LENGTH = 4;
   const COLOR_STOP_0 = { r: 220, g: 38, b: 38 }; // Red
@@ -88,6 +87,7 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
   };
 
   const renderEdge = (edge: Edge) => {
+    const FLOW_SPEED = edge.value * 60; // pixels per second
     const source = nodes.find((n) => n.id === edge.source);
     const target = nodes.find((n) => n.id === edge.target);
 
