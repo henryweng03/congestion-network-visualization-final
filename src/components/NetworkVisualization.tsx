@@ -26,10 +26,11 @@ interface NetworkProps {
 
 const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
   const NODE_RADIUS = 7;
-  const EDGE_SPACING = 10;
+  const EDGE_SPACING = 6;
   const ARROW_SIZE = 5;
-  const DASH_LENGTH = 4;
+  const DASH_LENGTH = 6;
   const GAP_LENGTH = 4;
+  const VIEWBOX_BUFFER = 10; // New constant for viewBox buffer
   const COLOR_STOP_0 = { r: 220, g: 38, b: 38 }; // Red
   const COLOR_STOP_05 = { r: 250, g: 204, b: 21 }; // Yellow
   const COLOR_STOP_1 = { r: 16, g: 185, b: 149 }; // Green
@@ -86,8 +87,8 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
     const centerY = (minY + maxY) / 2;
 
     // Calculate the size of the network
-    const width = maxX - minX + NODE_RADIUS * 2;
-    const height = maxY - minY + NODE_RADIUS * 2;
+    const width = maxX - minX + NODE_RADIUS * 2 + VIEWBOX_BUFFER * 2;
+    const height = maxY - minY + NODE_RADIUS * 2 + VIEWBOX_BUFFER * 2;
 
     // Calculate the translation needed to center the network
     const translateX = -centerX;
@@ -102,7 +103,7 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
       },
     }));
 
-    // Set the viewBox to fit the entire network
+    // Set the viewBox to fit the entire network with buffer
     const viewBox = `${-width / 2} ${-height / 2} ${width} ${height}`;
 
     return { translatedNodes, viewBox };
@@ -117,7 +118,9 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
         cy={position.y}
         r={NODE_RADIUS}
         className={`${
-          type === "solid" ? "fill-blue-500" : "fill-white stroke-blue-500"
+          type === "solid"
+            ? "fill-slate-500"
+            : "fill-slate-100 stroke-slate-500"
         } stroke-2`}
       />
     );
