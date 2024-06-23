@@ -335,7 +335,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-12 bg-slate-50">
+    <main className="flex min-h-screen flex-col items-center justify-center p-12 bg-slate-50">
       <div className="flex space-x-8">
         <div>
           <VariableControlPanel />
