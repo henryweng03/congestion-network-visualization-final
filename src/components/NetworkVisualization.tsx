@@ -119,15 +119,15 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
         r={NODE_RADIUS}
         className={`${
           type === "solid"
-            ? "fill-slate-500"
-            : "fill-slate-100 stroke-slate-500"
+            ? "fill-slate-400"
+            : "fill-slate-100 stroke-slate-400"
         } stroke-2`}
       />
     );
   };
 
   const renderEdge = (edge: Edge) => {
-    const FLOW_SPEED = edge.value * 60; // pixels per second
+    const FLOW_SPEED = edge.value * 100; // pixels per second
     const source = translatedNodes.find((n) => n.id === edge.source);
     const target = translatedNodes.find((n) => n.id === edge.target);
 

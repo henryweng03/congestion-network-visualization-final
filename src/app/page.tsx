@@ -112,6 +112,76 @@ export default function Home() {
 
   const edges: Edge[] = [
     {
+      id: "eSource1-4",
+      type: "uni",
+      source: "source_1",
+      target: "4",
+      value: 0.8,
+    },
+    {
+      id: "eSource1-10",
+      type: "uni",
+      source: "source_1",
+      target: "10",
+      value: 0.2,
+    },
+    {
+      id: "eSource-2-1",
+      type: "uni",
+      source: "source_2",
+      target: "1",
+      value: 0.5,
+    },
+    {
+      id: "eSource-2-2",
+      type: "uni",
+      source: "source_2",
+      target: "2",
+      value: 0.6,
+    },
+    {
+      id: "eSource-2-3",
+      type: "uni",
+      source: "source_2",
+      target: "3",
+      value: 0.5,
+    },
+    {
+      id: "eSource3-3",
+      type: "uni",
+      source: "source_3",
+      target: "3",
+      value: 0.3,
+    },
+    {
+      id: "eSource3-6",
+      type: "uni",
+      source: "source_3",
+      target: "6",
+      value: 0.7,
+    },
+    {
+      id: "eSource4-12",
+      type: "uni",
+      source: "source_4",
+      target: "12",
+      value: 0.4,
+    },
+    {
+      id: "eSource4-14",
+      type: "uni",
+      source: "source_4",
+      target: "14",
+      value: 0.9,
+    },
+    {
+      id: "eSource4-15",
+      type: "uni",
+      source: "source_4",
+      target: "15",
+      value: 1,
+    },
+    {
       id: "e1-2",
       type: "bi",
       source: "1",
@@ -268,13 +338,13 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24 bg-white">
+    <main className="flex min-h-screen flex-col items-center justify-between p-12 bg-white">
       <div className="flex space-x-6">
         <div>
           <VariableControlPanel />
         </div>
-        <div>
-          <Card>
+        <div className="flex-grow">
+          <Card className="p-5">
             <NetworkVisualization nodes={nodes} edges={edges} />
           </Card>
         </div>
