@@ -68,11 +68,8 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
       offset: number = 0,
       reverse: boolean = false
     ) => {
-      let actualStart = reverse ? end : start;
-      let actualEnd = reverse ? start : end;
-
-      const dx = actualEnd.position.x - actualStart.position.x;
-      const dy = actualEnd.position.y - actualStart.position.y;
+      const dx = end.position.x - start.position.x;
+      const dy = end.position.y - start.position.y;
       const angle = Math.atan2(dy, dx);
       const perpendicular = angle + Math.PI / 2;
 
@@ -80,11 +77,11 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
       const edgeLength = distance - NODE_RADIUS * 2; // Subtract radius for both nodes
 
       const startX =
-        actualStart.position.x +
+        start.position.x +
         Math.cos(angle) * NODE_RADIUS +
         Math.cos(perpendicular) * offset;
       const startY =
-        actualStart.position.y +
+        start.position.y +
         Math.sin(angle) * NODE_RADIUS +
         Math.sin(perpendicular) * offset;
       const endX = startX + Math.cos(angle) * edgeLength;
@@ -123,8 +120,8 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
           >
             <animate
               attributeName="stroke-dashoffset"
-              from={dashOffset}
-              to={0}
+              from={reverse ? 0 : dashOffset}
+              to={reverse ? dashOffset : 0}
               dur={`${animationDuration}s`}
               repeatCount="indefinite"
             />
@@ -148,7 +145,7 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
             target,
             source,
             `${edge.id}-backward`,
-            -EDGE_SPACING / 2,
+            EDGE_SPACING / 2,
             true
           )}
         </>
