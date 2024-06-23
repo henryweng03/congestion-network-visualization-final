@@ -12,7 +12,7 @@ const LabeledInput = React.forwardRef<HTMLInputElement, LabeledInputProps>(
     return (
       <div
         className={cn(
-          "group relative flex w-min bg-white items-center rounded-md border focus-within:border-primary border-slate-300 disabled:cursor-not-allowed disabled:opacity-50",
+          "group relative flex w-min bg-white items-center rounded-md border focus-within:border-blue-900 border-slate-300 disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
       >
