@@ -80,7 +80,9 @@ export default function Home() {
           <VariableControlPanel />
         </div>
         <div>
-          <NetworkVisualization nodes={nodes} edges={edges} />
+          <Card>
+            <NetworkVisualization nodes={nodes} edges={edges} />
+          </Card>
         </div>
         <div className="space-y-6">
           <StatCard header="984 million" text="Annual hrs saved vs no toll" />

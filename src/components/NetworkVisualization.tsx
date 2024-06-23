@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 interface Position {
   x: number;
@@ -71,6 +71,43 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
 
     return `rgb(${interpolatedColor.r}, ${interpolatedColor.g}, ${interpolatedColor.b})`;
   };
+
+  const { translatedNodes, viewBox } = useMemo(() => {
+    // Find the bounds of the network
+    const xValues = nodes.map((n) => n.position.x);
+    const yValues = nodes.map((n) => n.position.y);
+    const minX = Math.min(...xValues);
+    const maxX = Math.max(...xValues);
+    const minY = Math.min(...yValues);
+    const maxY = Math.max(...yValues);
+
+    // Calculate the center of the network
+    const centerX = (minX + maxX) / 2;
+    const centerY = (minY + maxY) / 2;
+
+    // Calculate the size of the network
+    const width = maxX - minX + NODE_RADIUS * 2;
+    const height = maxY - minY + NODE_RADIUS * 2;
+
+    // Calculate the translation needed to center the network
+    const translateX = -centerX;
+    const translateY = -centerY;
+
+    // Apply translation to nodes
+    const translatedNodes = nodes.map((node) => ({
+      ...node,
+      position: {
+        x: node.position.x + translateX,
+        y: node.position.y + translateY,
+      },
+    }));
+
+    // Set the viewBox to fit the entire network
+    const viewBox = `${-width / 2} ${-height / 2} ${width} ${height}`;
+
+    return { translatedNodes, viewBox };
+  }, [nodes]);
+
   const renderNode = (node: Node) => {
     const { id, type, position } = node;
     return (
@@ -88,8 +125,8 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
 
   const renderEdge = (edge: Edge) => {
     const FLOW_SPEED = edge.value * 60; // pixels per second
-    const source = nodes.find((n) => n.id === edge.source);
-    const target = nodes.find((n) => n.id === edge.target);
+    const source = translatedNodes.find((n) => n.id === edge.source);
+    const target = translatedNodes.find((n) => n.id === edge.target);
 
     if (!source || !target) return null;
 
@@ -191,10 +228,14 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
   };
 
   return (
-    <svg className="w-full h-full">
+    <svg
+      className="w-full h-full"
+      viewBox={viewBox}
+      preserveAspectRatio="xMidYMid meet"
+    >
       <g>
         {edges.map(renderEdge)}
-        {nodes.map(renderNode)}
+        {translatedNodes.map(renderNode)}
       </g>
     </svg>
   );
