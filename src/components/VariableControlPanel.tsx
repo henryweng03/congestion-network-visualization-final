@@ -5,7 +5,10 @@ import SliderWithInput from "./SliderWithInput";
 import Card from "./Card";
 export default function VariableControlPanel() {
   return (
-    <Tabs defaultValue="account" className="w-[400px] shadow-sm bg-white">
+    <Tabs
+      defaultValue="current-proposal"
+      className="w-[400px] shadow-sm bg-white"
+    >
       <TabsList className="grid w-full grid-cols-2 bg-whiterounded-lg rounded-b-none border border-b-0 p-4 -mb-8">
         <TabsTrigger
           value="current-proposal"
