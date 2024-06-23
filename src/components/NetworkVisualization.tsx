@@ -13,7 +13,7 @@ export interface Node {
 
 export interface Edge {
   id: string;
-  type: "unidirectional" | "bidirectional";
+  type: "uni" | "bi";
   source: string;
   target: string;
   value: number;
@@ -207,7 +207,7 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
       );
     };
 
-    if (edge.type === "unidirectional") {
+    if (edge.type === "uni") {
       return renderSingleEdge(source, target, edge.id);
     } else {
       return (
