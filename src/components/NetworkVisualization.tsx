@@ -25,8 +25,9 @@ interface NetworkProps {
 }
 
 const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
-  const NODE_RADIUS = 7; // Increased node size
-  const EDGE_SPACING = 10; // Spacing between bidirectional edges
+  const NODE_RADIUS = 7;
+  const EDGE_SPACING = 10;
+  const ARROW_SIZE = 5;
 
   const getColorForValue = (value: number) => {
     const r = Math.max(0, Math.min(255, Math.round(255 * (1 - value))));
@@ -57,34 +58,47 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
 
     const color = getColorForValue(edge.value);
 
-    const angle = Math.atan2(
-      target.position.y - source.position.y,
-      target.position.x - source.position.x
-    );
-    const perpendicular = angle + Math.PI / 2;
-
     const renderSingleEdge = (
       start: Node,
       end: Node,
       id: string,
       offset: number = 0
     ) => {
-      const startX = start.position.x + Math.cos(perpendicular) * offset;
-      const startY = start.position.y + Math.sin(perpendicular) * offset;
-      const endX = end.position.x + Math.cos(perpendicular) * offset;
-      const endY = end.position.y + Math.sin(perpendicular) * offset;
+      const dx = end.position.x - start.position.x;
+      const dy = end.position.y - start.position.y;
+      const angle = Math.atan2(dy, dx);
+      const perpendicular = angle + Math.PI / 2;
+
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      const edgeLength = distance - NODE_RADIUS * 2; // Subtract radius for both nodes
+
+      const startX =
+        start.position.x +
+        Math.cos(angle) * NODE_RADIUS +
+        Math.cos(perpendicular) * offset;
+      const startY =
+        start.position.y +
+        Math.sin(angle) * NODE_RADIUS +
+        Math.sin(perpendicular) * offset;
+      const endX = startX + Math.cos(angle) * edgeLength;
+      const endY = startY + Math.sin(angle) * edgeLength;
 
       return (
         <g key={id}>
           <marker
             id={`arrowhead-${id}`}
-            markerWidth={10}
-            markerHeight={7}
-            refX={8}
-            refY={3.5}
+            markerWidth={ARROW_SIZE}
+            markerHeight={ARROW_SIZE * 0.7}
+            refX={ARROW_SIZE * 0.8}
+            refY={ARROW_SIZE * 0.35}
             orient="auto"
           >
-            <polygon points="0 0, 10 3.5, 0 7" fill={color} />
+            <polygon
+              points={`0 0, ${ARROW_SIZE} ${ARROW_SIZE * 0.35}, 0 ${
+                ARROW_SIZE * 0.7
+              }`}
+              fill={color}
+            />
           </marker>
           <line
             x1={startX}
@@ -115,7 +129,7 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
             target,
             source,
             `${edge.id}-backward`,
-            -EDGE_SPACING / 2
+            EDGE_SPACING / 2
           )}
         </>
       );
