@@ -28,16 +28,50 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
   const NODE_RADIUS = 7;
   const EDGE_SPACING = 10;
   const ARROW_SIZE = 5;
-  const FLOW_SPEED = 50; // pixels per second
+  const FLOW_SPEED = 20; // pixels per second
   const DASH_LENGTH = 4;
   const GAP_LENGTH = 4;
+  const COLOR_STOP_0 = { r: 220, g: 38, b: 38 }; // Red
+  const COLOR_STOP_05 = { r: 250, g: 204, b: 21 }; // Yellow
+  const COLOR_STOP_1 = { r: 16, g: 185, b: 149 }; // Green
 
-  const getColorForValue = (value: number) => {
-    const r = Math.max(0, Math.min(255, Math.round(255 * (1 - value))));
-    const g = Math.max(0, Math.min(255, Math.round(255 * value)));
-    return `rgb(${r}, ${g}, 0)`;
+  // Helper function to interpolate between two colors
+  const interpolateColor = (
+    color1: typeof COLOR_STOP_0,
+    color2: typeof COLOR_STOP_0,
+    factor: number
+  ) => {
+    return {
+      r: Math.round(color1.r + factor * (color2.r - color1.r)),
+      g: Math.round(color1.g + factor * (color2.g - color1.g)),
+      b: Math.round(color1.b + factor * (color2.b - color1.b)),
+    };
   };
 
+  const getColorForValue = (value: number) => {
+    // Ensure value is between 0 and 1
+    value = Math.max(0, Math.min(1, value));
+
+    let interpolatedColor;
+
+    if (value < 0.5) {
+      // Interpolate between COLOR_STOP_0 and COLOR_STOP_05
+      interpolatedColor = interpolateColor(
+        COLOR_STOP_0,
+        COLOR_STOP_05,
+        value * 2
+      );
+    } else {
+      // Interpolate between COLOR_STOP_05 and COLOR_STOP_1
+      interpolatedColor = interpolateColor(
+        COLOR_STOP_05,
+        COLOR_STOP_1,
+        (value - 0.5) * 2
+      );
+    }
+
+    return `rgb(${interpolatedColor.r}, ${interpolatedColor.g}, ${interpolatedColor.b})`;
+  };
   const renderNode = (node: Node) => {
     const { id, type, position } = node;
     return (
@@ -68,8 +102,11 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
       offset: number = 0,
       reverse: boolean = false
     ) => {
-      const dx = end.position.x - start.position.x;
-      const dy = end.position.y - start.position.y;
+      let actualStart = reverse ? end : start;
+      let actualEnd = reverse ? start : end;
+
+      const dx = actualEnd.position.x - actualStart.position.x;
+      const dy = actualEnd.position.y - actualStart.position.y;
       const angle = Math.atan2(dy, dx);
       const perpendicular = angle + Math.PI / 2;
 
@@ -77,11 +114,11 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
       const edgeLength = distance - NODE_RADIUS * 2; // Subtract radius for both nodes
 
       const startX =
-        start.position.x +
+        actualStart.position.x +
         Math.cos(angle) * NODE_RADIUS +
         Math.cos(perpendicular) * offset;
       const startY =
-        start.position.y +
+        actualStart.position.y +
         Math.sin(angle) * NODE_RADIUS +
         Math.sin(perpendicular) * offset;
       const endX = startX + Math.cos(angle) * edgeLength;
@@ -120,8 +157,8 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
           >
             <animate
               attributeName="stroke-dashoffset"
-              from={reverse ? 0 : dashOffset}
-              to={reverse ? dashOffset : 0}
+              from={dashOffset}
+              to={0}
               dur={`${animationDuration}s`}
               repeatCount="indefinite"
             />
@@ -142,8 +179,8 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
             EDGE_SPACING / 2
           )}
           {renderSingleEdge(
-            target,
             source,
+            target,
             `${edge.id}-backward`,
             EDGE_SPACING / 2,
             true
