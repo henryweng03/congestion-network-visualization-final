@@ -26,19 +26,19 @@ export default function VariableControlPanel() {
       <TabsContent value="current-proposal">
         <Card className="space-y-16 rounded-t-none border-t-0">
           <SliderWithInput
-            defaultValue={33}
+            defaultValue={15}
             min={0}
             max={100}
             labelName="Taxi toll ($ per entry)"
           />
           <SliderWithInput
-            defaultValue={33}
+            defaultValue={15}
             min={0}
             max={100}
             labelName="Commuter toll ($ per entry)"
           />
           <SliderWithInput
-            defaultValue={33}
+            defaultValue={0}
             min={0}
             max={100}
             labelName="% revenue rebated to taxi"
@@ -48,19 +48,20 @@ export default function VariableControlPanel() {
       <TabsContent value="new-proposal">
         <Card className="space-y-16 rounded-t-none border-t-0">
           <SliderWithInput
-            defaultValue={33}
+            defaultValue={0.3}
             min={0}
-            max={100}
+            max={2}
+            step={0.01}
             labelName="Taxi toll ($ per mile)"
           />
           <SliderWithInput
-            defaultValue={33}
+            defaultValue={15}
             min={0}
             max={100}
             labelName="Commuter toll ($ per entry)"
           />
           <SliderWithInput
-            defaultValue={33}
+            defaultValue={35}
             min={0}
             max={100}
             labelName="% revenue rebated to taxi"

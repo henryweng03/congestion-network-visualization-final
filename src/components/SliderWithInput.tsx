@@ -22,11 +22,13 @@ const validateInput = (
 export default function SliderWithInput({
   min,
   max,
+  step = 1,
   defaultValue,
   labelName,
 }: {
   min: number;
   max: number;
+  step?: number;
   defaultValue: number;
   labelName: string;
 }) {
@@ -66,8 +68,8 @@ export default function SliderWithInput({
         onValueChange={(values) => setValue(values[0].toString())}
         min={min}
         max={max}
-        step={1}
-        className="w-[20rem]"
+        step={step}
+        className="w-[18rem]"
       />
     </div>
   );
