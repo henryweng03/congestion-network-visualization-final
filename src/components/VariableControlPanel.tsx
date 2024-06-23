@@ -5,8 +5,8 @@ import SliderWithInput from "./SliderWithInput";
 import Card from "./Card";
 export default function VariableControlPanel() {
   return (
-    <Tabs defaultValue="account" className="w-[400px]">
-      <TabsList className="grid w-full grid-cols-2 bg-slate-50 rounded-lg rounded-b-none border border-b-0 shadow-sm p-4 -mb-8">
+    <Tabs defaultValue="account" className="w-[400px] shadow-sm bg-white">
+      <TabsList className="grid w-full grid-cols-2 bg-whiterounded-lg rounded-b-none border border-b-0 p-4 -mb-8">
         <TabsTrigger
           value="current-proposal"
           className="py-2.5 rounded-md border border-r-0 rounded-r-none data-[state=inactive]:bg-slate-200/60 data-[state=inactive]:shadow-inner"

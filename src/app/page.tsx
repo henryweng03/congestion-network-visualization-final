@@ -1,9 +1,6 @@
 "use client";
 
-import NetworkVisualization, {
-  Edge,
-  Node,
-} from "@/components/NetworkVisualization";
+import Network, { Edge, Node } from "@/components/Network";
 import SliderWithInput from "@/components/SliderWithInput";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
@@ -338,17 +335,22 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-12 bg-white">
-      <div className="flex space-x-6">
+    <main className="flex min-h-screen flex-col items-center justify-between p-12 bg-slate-50">
+      <div className="flex space-x-8">
         <div>
           <VariableControlPanel />
         </div>
-        <div className="flex-grow">
-          <Card className="p-5">
-            <NetworkVisualization nodes={nodes} edges={edges} />
+        <div className="flex-grow flex shrink-0">
+          <Card className="p-5 pt-8">
+            <h1 className="text-3xl tracking-tight font-medium text-center mb-4">
+              NYC Traffic Visualization
+            </h1>
+            <div className="h-[45rem]">
+              <Network nodes={nodes} edges={edges} />
+            </div>
           </Card>
         </div>
-        <div className="space-y-6">
+        <div className="space-y-8">
           <StatCard header="984 million" text="Annual hrs saved vs no toll" />
           <StatCard header="$33.4m" text="Annual toll revenue" />
           <StatCard header="$15.7m" text="Payment to taxicabs" />

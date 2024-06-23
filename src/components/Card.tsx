@@ -10,7 +10,7 @@ export default function Card({
   return (
     <div
       className={cn(
-        "flex flex-col items-start py-12 px-10 bg-slate-50 rounded-lg shadow-sm border",
+        "py-12 px-10 rounded-lg shadow-sm border bg-white",
         className
       )}
     >
