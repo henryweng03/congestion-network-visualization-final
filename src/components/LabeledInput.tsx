@@ -16,9 +16,12 @@ const LabeledInput = React.forwardRef<HTMLInputElement, LabeledInputProps>(
           className
         )}
       >
-        <p className="text-xs font-medium text-muted-foreground ml-3 pr-3 border-slate-300 border-r w-[11.5rem]">
-          {label}
-        </p>
+        <div className="flex items-center w-[11.5rem] bg-slate-50 pr-3 h-[36px] border-slate-300 border-r rounded-md rounded-r-none">
+          <p className="text-xs font-medium text-muted-foreground ml-3">
+            {label}
+          </p>
+        </div>
+
         <input
           type={type}
           ref={ref}
