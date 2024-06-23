@@ -127,7 +127,7 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
   };
 
   const renderEdge = (edge: Edge) => {
-    const FLOW_SPEED = edge.value * 100; // pixels per second
+    const FLOW_SPEED = edge.value * 150; // pixels per second
     const source = translatedNodes.find((n) => n.id === edge.source);
     const target = translatedNodes.find((n) => n.id === edge.target);
 
