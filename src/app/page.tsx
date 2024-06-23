@@ -4,6 +4,7 @@ import Network, { Edge, Node } from "@/components/Network";
 import Card from "@/components/Card";
 import VariableControlPanel from "@/components/VariableControlPanel";
 import StatCard from "@/components/StatCard";
+import Image from "next/image";
 
 export default function Home() {
   // @Mike: This is dummy data that should be fetched from the server
@@ -368,25 +369,34 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-12 bg-slate-50">
-      <div className="flex space-x-8">
-        <div>
-          <VariableControlPanel />
-        </div>
-        <div className="flex-grow flex shrink-0">
-          <Card className="p-5 pt-8">
-            <h1 className="text-3xl tracking-tight font-medium text-center mb-4">
-              NYC Traffic Visualization
-            </h1>
-            <div className="h-[36rem]">
-              <Network nodes={nodes} edges={edges} />
-            </div>
-          </Card>
-        </div>
-        <div className="space-y-8">
-          <StatCard header="984 million" text="Annual hrs saved vs no toll" />
-          <StatCard header="$33.4m" text="Annual toll revenue" />
-          <StatCard header="$15.7m" text="Payment to taxicabs" />
+    <main className="flex min-h-screen flex-col justify-center p-12 pt-6 bg-slate-50">
+      <div className="mx-auto">
+        <Image
+          src="/GSB-logo.png"
+          alt="Stanford GSB Logo"
+          height={200}
+          width={200}
+          className="mb-6"
+        />
+        <div className="flex space-x-8">
+          <div>
+            <VariableControlPanel />
+          </div>
+          <div className="shrink-0">
+            <Card className="p-5 pt-8">
+              <h1 className="text-3xl tracking-tight font-medium text-center mb-4">
+                NYC Traffic Visualization
+              </h1>
+              <div className="h-[35rem]">
+                <Network nodes={nodes} edges={edges} />
+              </div>
+            </Card>
+          </div>
+          <div className="space-y-8">
+            <StatCard header="984 million" text="Annual hrs saved vs no toll" />
+            <StatCard header="$33.4m" text="Annual toll revenue" />
+            <StatCard header="$15.7m" text="Payment to taxicabs" />
+          </div>
         </div>
       </div>
     </main>
