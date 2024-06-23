@@ -19,7 +19,7 @@ export default function Home() {
     "eSource4-12": 0.4,
     "eSource4-14": 0.9,
     "eSource4-15": 1,
-    "e1-2": 0,
+    "e1-2": 0.1,
     "e2-3": 0.3,
     "e1-4": 0.4,
     "e2-5": 0.4,
