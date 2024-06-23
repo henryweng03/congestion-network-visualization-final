@@ -369,7 +369,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col justify-center p-12 pt-6 bg-slate-100">
+    <main className="flex min-h-screen flex-col justify-center p-12 pt-6">
       <div className="mx-auto">
         <Image
           src="/GSB-logo.png"

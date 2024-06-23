@@ -10,7 +10,7 @@ export default function Card({
   return (
     <div
       className={cn(
-        "py-12 px-10 rounded-lg shadow-sm border bg-white",
+        "py-12 px-10 rounded-lg shadow-sm border border-slate-200 bg-white",
         className
       )}
     >
