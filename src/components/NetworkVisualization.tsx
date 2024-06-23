@@ -28,6 +28,9 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
   const NODE_RADIUS = 7;
   const EDGE_SPACING = 10;
   const ARROW_SIZE = 5;
+  const FLOW_SPEED = 50; // pixels per second
+  const DASH_LENGTH = 4;
+  const GAP_LENGTH = 4;
 
   const getColorForValue = (value: number) => {
     const r = Math.max(0, Math.min(255, Math.round(255 * (1 - value))));
@@ -62,10 +65,14 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
       start: Node,
       end: Node,
       id: string,
-      offset: number = 0
+      offset: number = 0,
+      reverse: boolean = false
     ) => {
-      const dx = end.position.x - start.position.x;
-      const dy = end.position.y - start.position.y;
+      let actualStart = reverse ? end : start;
+      let actualEnd = reverse ? start : end;
+
+      const dx = actualEnd.position.x - actualStart.position.x;
+      const dy = actualEnd.position.y - actualStart.position.y;
       const angle = Math.atan2(dy, dx);
       const perpendicular = angle + Math.PI / 2;
 
@@ -73,15 +80,19 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
       const edgeLength = distance - NODE_RADIUS * 2; // Subtract radius for both nodes
 
       const startX =
-        start.position.x +
+        actualStart.position.x +
         Math.cos(angle) * NODE_RADIUS +
         Math.cos(perpendicular) * offset;
       const startY =
-        start.position.y +
+        actualStart.position.y +
         Math.sin(angle) * NODE_RADIUS +
         Math.sin(perpendicular) * offset;
       const endX = startX + Math.cos(angle) * edgeLength;
       const endY = startY + Math.sin(angle) * edgeLength;
+
+      const dashArray = `${DASH_LENGTH},${GAP_LENGTH}`;
+      const dashOffset = DASH_LENGTH + GAP_LENGTH;
+      const animationDuration = edgeLength / FLOW_SPEED;
 
       return (
         <g key={id}>
@@ -107,9 +118,17 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
             y2={endY}
             stroke={color}
             strokeWidth={2}
-            strokeDasharray="4"
+            strokeDasharray={dashArray}
             markerEnd={`url(#arrowhead-${id})`}
-          />
+          >
+            <animate
+              attributeName="stroke-dashoffset"
+              from={dashOffset}
+              to={0}
+              dur={`${animationDuration}s`}
+              repeatCount="indefinite"
+            />
+          </line>
         </g>
       );
     };
@@ -129,7 +148,8 @@ const Network: React.FC<NetworkProps> = ({ nodes, edges }) => {
             target,
             source,
             `${edge.id}-backward`,
-            EDGE_SPACING / 2
+            -EDGE_SPACING / 2,
+            true
           )}
         </>
       );
